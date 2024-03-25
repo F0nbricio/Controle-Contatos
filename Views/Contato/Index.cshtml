@@ -1,0 +1,73 @@
+﻿@model List<ContatoModel>
+@{
+    ViewData["Title"] = "Listagem de Contatos";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-success" role="button" asp-controller="Contato" asp-action="Criar"><i class="bi bi-telephone-plus"></i></a>
+    </div>
+    <br />
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"><i class="bi bi-x-lg"></i></button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"><i class="bi bi-x-lg"></i></button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <br />
+
+    <h1 class="display-4">Listagem de contatos</h1>
+
+    <table class="display" id="table-contatos" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Id</th>
+                <th scope="col" class="text-center">Nome</th>
+                <th scope="col" class="text-center">E-mail</th>
+                <th scope="col" class="text-center">Celular</th>
+                <th scope="col" class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null && Model.Any())
+            {
+                foreach(ContatoModel contato in Model)
+                {
+                    <tr>
+                        <th scope="row">@contato.Id</th>
+                        <td scope="row" class="text-center">@contato.Nome</td>
+                        <td scope="row" class="text-center">@contato.Email</td>
+                        <td scope="row" class="text-center">@contato.Celular</td>
+                        <td scope="row" class="text-center">
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-info" asp-route-id="@contato.Id" asp-controller="Contato" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@contato.Id" asp-controller="Contato" asp-action="ApagarConfirmacao">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd">
+                    <td valign="top" colspan="5">
+                        Nenhum contato encontrado!
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

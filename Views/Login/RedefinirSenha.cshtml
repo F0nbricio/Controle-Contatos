@@ -1,0 +1,35 @@
+﻿@model RedefinirSenhaModel
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Redefinir Senha";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<div class="card w-25">
+    <h5 class="card-header text-center">Redefina sua senha</h5>
+    <div class="card-body">
+        @if (TempData["MensagemErro"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"><i class="bi bi-x-lg"></i></button>
+                @TempData["MensagemErro"]
+            </div>
+        }
+
+        <form asp-controller="Login" asp-action="EnviarLink" method="post">
+            <div class="form-group">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" asp-for="Login" class="form-control" id="login" placeholder="Digite o seu login...">
+                @Html.ValidationMessageFor(x => x.Login)
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" asp-for="Email" class="form-control" id="email" placeholder="Digite seu e-mail...">
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Redefinir</button>
+            <a class="btn btn-danger btn-block" asp-controller="Login" asp-action="Index" role="button">Voltar</a>
+        </form>
+    </div>
+</div>

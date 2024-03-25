@@ -1,0 +1,52 @@
+﻿@using ControleContatos.Enuns
+@model AlterarSenhaModel
+@{
+    ViewData["Title"] = "Alterar senha do usuário";
+}
+
+<div class="card w-25">
+    <h5 class="card-header text-center">
+        Alterar senha do usuário
+    </h5>
+    <div class="card-body">
+        @if (TempData["MensagemSucesso"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"><i class="bi bi-x-lg"></i></button>
+                @TempData["MensagemSucesso"]
+            </div>
+        }
+
+        @if (TempData["MensagemErro"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"><i class="bi bi-x-lg"></i></button>
+                @TempData["MensagemErro"]
+            </div>
+        }
+
+        <form asp-controller="AlterarSenha" asp-action="Alterar" method="post">
+
+            <div class="form-group">
+                <label for="senhaAtual" class="form-label">Senha Atual</label>
+                <input type="password" asp-for="SenhaAtual" class="form-control" id="senhaAtual" placeholder="Digite sua senha atual...">
+                @Html.ValidationMessageFor(x => x.SenhaAtual)
+            </div>
+
+            <div class="form-group">
+                <label for="novaSenha" class="form-label">Nova Senha</label>
+                <input type="password" asp-for="NovaSenha" class="form-control" id="novaSenha" placeholder="Digite sua nova senha...">
+                @Html.ValidationMessageFor(x => x.NovaSenha)
+            </div>
+
+            <div class="form-group">
+                <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
+                <input type="password" asp-for="ConfirmarNovaSenha" class="form-control" id="confirmarSenha" placeholder="Confirme sua nova senha...">
+                @Html.ValidationMessageFor(x => x.ConfirmarNovaSenha)
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">Alterar Senha</button>
+            <a class="btn btn-danger btn-block" asp-controller="Home" asp-action="Index" role="button">Voltar</a>
+        </form>
+    </div>
+</div>

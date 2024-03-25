@@ -1,0 +1,98 @@
+﻿@model List<UsuarioModel>
+@{
+    ViewData["Title"] = "Listagem de Usuários";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-success" role="button" asp-controller="Usuario" asp-action="Criar"><i class="bi bi-person-plus"></i></a>
+    </div>
+    <br />
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"><i class="bi bi-x-lg"></i></button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"><i class="bi bi-x-lg"></i></button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <br />
+
+    <h1 class="display-4">Listagem de usuários</h1>
+
+    <table class="display" id="table-usuarios" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Id</th>
+                <th scope="col" class="text-center">Nome</th>
+                <th scope="col" class="text-center">Login</th>
+                <th scope="col" class="text-center">E-mail</th>
+                <th scope="col" class="text-center">Perfil</th>
+                <th scope="col" class="text-center">Total de Contatos</th>
+                <th scope="col" class="text-center">Data de cadastro</th>
+                <th scope="col" class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null && Model.Any())
+            {
+                foreach(UsuarioModel usuario in Model)
+                {
+                    <tr>
+                        <th scope="row" class="text-center">@usuario.Id</th>
+                        <td scope="row" class="text-center">@usuario.Nome</td>
+                        <td scope="row" class="text-center">@usuario.Login</td>
+                        <td scope="row" class="text-center">@usuario.Email</td>
+                        <td scope="row" class="text-center">@(usuario.Perfil == ControleContatos.Enuns.PerfilEnum.Admin ? "Adiministrador" : "Padrão")</td>
+                        <td scope="row" class="text-center">
+                            <a href="javascript:" usuario-id="@usuario.Id" class="btn btn-warning btn-sm btn-total-contatos">
+                                @(usuario.Contatos != null && usuario.Contatos.Any() ? usuario.Contatos.Count() : 0)
+                            </a>
+                        </td>
+                        <td scope="row" class="text-center">@usuario.DataCadastro</td>
+                        <td scope="row" class="text-center">
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-info" asp-route-id="@usuario.Id" asp-controller="Usuario" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@usuario.Id" asp-controller="Usuario" asp-action="ApagarConfirmacao">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd">
+                    <td valign="top" colspan="5">
+                        Nenhum usuário encontrado!
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div id="modalContatosUsuario" class="modal w-100" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Listagem de Contatos</h5>
+                    <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div id="listaContatosUsuario"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

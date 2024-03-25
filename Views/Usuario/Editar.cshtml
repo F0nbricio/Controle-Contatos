@@ -1,0 +1,45 @@
+﻿@using ControleContatos.Enuns
+@model UsuarioModel
+@{
+    ViewData["Title"] = "Ediar Usuário";
+}
+
+<div class="card w-25">
+    <h5 class="card-header text-center">Editar Usuário</h5>
+    <div class="card-body">
+        <form asp-controller="Usuario" asp-action="Editar" method="post">
+
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" asp-for="Nome" class="form-control" id="nome" placeholder="Digite o nome do usuário...">
+                @Html.ValidationMessageFor(x => x.Nome)
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" asp-for="Email" class="form-control" id="email" placeholder="Digite o e-mail do usuário...">
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+
+            <div class="form-group">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" asp-for="Login" class="form-control" id="login" placeholder="Digite o login do usuário...">
+                @Html.ValidationMessageFor(x => x.Login)
+            </div>
+
+            <div class="form-group">
+                <label for="perfil" class="form-label">Perfil</label>
+                <select class="form-control" asp-for="Perfil" id="perfil">
+                    <option value="">Selecione o tipo de perfil...</option>
+                    <option value="@PerfilEnum.Admin">Administrador</option>
+                    <option value="@PerfilEnum.Padrao">Padrão</option>
+                </select>
+                @Html.ValidationMessageFor(x => x.Perfil)
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">Alterar</button>
+            <a class="btn btn-danger btn-block" asp-controller="Usuario" asp-action="Index" role="button">Voltar</a>
+        </form>
+    </div>
+</div>
