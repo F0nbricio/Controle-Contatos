@@ -1,6 +1,9 @@
 # Projeto Controle de Contatos
 Um projeto criado com as linguagens Html, Css, JavaScript, Sql e C#, utilizando o modelo ASP.NET Core MVC.
 
+# Sobre o projeto
+O Controle de Contatos, como o nome já diz, é um sistema para criar, adicionar e deletar contatos (CRUD), além disso tem um sistema de login, onde tem o mesmo sistema de CRUD e cada usário tem suas proprias permições no site.
+
 # Funcionalidades
 O Controle de Contatos conta com uma tela de login; Uma funcionalidade 'Esqueci minha senha', feita para alterar a senha do usuário, onde a mesma manda um e-mail para o usuário com uma nova senha de utilização; Um menu de 'Contatos' onde o usuário pode criar, editar e apagar seus contatos cadastrados;
 Um menu 'Sair', onde o usuário é mandado de volta para a tela de login; O projeto também conta com um sistema de permições de usuário, onde os perfis 'Administradores' tem acesso total ao site e os usuários 'Padrões' tem acesso somente ao menu 'Contatos' e ao menu 'Alterar Senha';
